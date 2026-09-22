@@ -83,8 +83,8 @@ export const LAYOUTS = {
   hero: {
     fit: true,
     refAspect: DESIGN.width / DESIGN.height,
-    boy: { ...BOY, foot: [710 / DESIGN.width, 1.04], depth: 6.28, scale: 2.05 },
-    robot: { ...ROBOT, head: px(1215, 84), depth: 6.28, scale: 0.86 },
+    boy: { ...BOY, foot: [710 / DESIGN.width, 0.94], depth: 6.28, scale: 2.1 },
+    robot: { ...ROBOT, head: px(1185, 125), depth: 6.28, scale: 0.88 },
   },
   // PORTFOLIO hero (robot only): a large robot on the right, turned toward the content column.
   // The canvas is the whole viewport; the content window is clipped to the left 56%, so the robot never covers text.
