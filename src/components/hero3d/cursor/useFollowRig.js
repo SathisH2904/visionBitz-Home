@@ -124,6 +124,7 @@ export function useFollowRig(root, config, interactionRef, { anchor = { x: 0, y:
         limitYawDeg: c.limitYaw ?? c.yaw ?? 0, limitPitchDeg: c.limitPitch ?? maxPitch,
         rollAmt: (c.roll || 0) * DEG, couple: c.couple || 0, time, cap: c.maxSpeed ? c.maxSpeed * DEG : Infinity,
         presentYaw: (c.present || 0) * DEG, // yaw at ±1 while presenting the service cards (followConfig.js)
+        presentPitch: (c.presentPitch || 0) * DEG, // downward tilt while presenting the active card
         blend: clamp(c.blend ?? 0, 0, 1),
         // ambient drift (radians): slow sines, plus micro-saccades for the eyes
         idleYaw: (idle?.yaw || 0) * DEG, idlePitch: (idle?.pitch || 0) * DEG, idleRate: (idle?.rate ?? 0.16) * TAU, saccade: !!idle?.saccade,
@@ -183,12 +184,13 @@ export function useFollowRig(root, config, interactionRef, { anchor = { x: 0, y:
     // ── 1. gaze demand: pointer … ──
     const p = it.pointer
     const o = cfg.origin === 'center' ? ORIGIN0 : cfg.origin === 'anchor' ? anchorRef.current : cfg.origin
-    const pointerOn = sens > 0 && p.active
+    const pointerOn = sens > 0 && (p.active || (it.focus && it.focus.w > 0.01))
     let pgx = 0, pgy = 0
     if (pointerOn) {
-      let tx = p.x, ty = p.y
+      let tx = p.active ? p.x : it.focus.x
+      let ty = p.active ? p.y : it.focus.y
       const f = it.focus
-      const w = f.w * (cfg.focusWeight ?? 0)
+      const w = p.active ? f.w * (cfg.focusWeight ?? 0) : (cfg.focusWeight ?? 0.85)
       if (w > 0.001) { tx = lerp(tx, f.x, w); ty = lerp(ty, f.y, w) } // an approached card pulls the gaze toward it
       pgx = axisDemand(tx - o.x, o.x, plan) * sens
       pgy = axisDemand(ty - o.y, o.y, plan) * sens
@@ -221,8 +223,13 @@ export function useFollowRig(root, config, interactionRef, { anchor = { x: 0, y:
       let targetYaw = Math.sign(gx) * cfg.yawSign * Math.max(aYaw, L.couple * absGx * L.maxYaw) * DEG * amp
       let targetPitch = Math.sign(gy) * cfg.pitchSign * Math.max(aPitch, L.couple * absGy * maxPitch) * DEG * amp
       const targetRoll = -gx * L.rollAmt * cfg.yawSign
-      // …plus the turn toward the cards being presented, added on top (the limits below still apply)
-      if (presentFree > 0) targetYaw += present * presentFree * L.presentYaw
+      // …plus the turn toward the cards being presented and organic downward tilt, added on top (the limits below still apply)
+      if (presentFree > 0) {
+        targetYaw += present * presentFree * L.presentYaw
+        if (L.presentPitch) {
+          targetPitch += (1 - Math.min(1, Math.abs(present) * 0.5)) * presentFree * L.presentPitch
+        }
+      }
 
       // ── 3. ambient drift (only for layers that define it, only while the mode allows it) ──
       if (idleAmt > 0) {

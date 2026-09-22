@@ -53,18 +53,22 @@ const px = (x, y) => [x / DESIGN.width, y / DESIGN.height]
  */
 const ROBOT = {
   headLocalY: 0.737,
-  yaw: -0.25, // faces the camera, turned toward screen-left (toward the card)
+  yaw: -0.28, // faces the camera, turned toward screen-left (toward the card)
   restPose: {
-    Head: { x: 0.24, y: -0.08, z: -0.06 }, // pitched downward looking at content card, turned toward card, slight tilt
-    Neck: { x: 0.08, y: -0.04 }, // neck aids downward pitch toward cards
-    Torso: { x: 0.06 }, // subtle forward lean toward cards
+    Head: { x: 0.32, y: -0.12, z: -0.06 }, // organic downward pitch toward active card, turned toward card
+    Neck: { x: 0.12, y: -0.06 }, // neck aids downward pitch toward cards
+    Torso: { x: 0.08, y: -0.06 }, // subtle forward lean and rotation so pointing arm aims at the card
   },
 }
 
 const BOY = {
   headLocalY: 0.844,
-  yaw: 2.5, // ≈ 143°: seen from behind, turned toward the screen-right (the cards)
-  restPose: {},
+  yaw: 2.36, // turned toward screen-right directly facing the cards
+  restPose: {
+    Head: { x: -0.08, y: -0.16, z: 0.04 }, // head turned toward the active card content and pitched up/forward
+    Neck: { x: -0.04, y: -0.08 }, // neck aids gaze toward card content
+    Torso: { y: -0.04 }, // subtle body alignment toward the cards
+  },
 }
 
 export const LAYOUTS = {
@@ -79,7 +83,7 @@ export const LAYOUTS = {
   hero: {
     fit: true,
     refAspect: DESIGN.width / DESIGN.height,
-    boy: { ...BOY, foot: [700 / DESIGN.width, 1.06], depth: 6.28, scale: 1.7 },
+    boy: { ...BOY, foot: [710 / DESIGN.width, 1.04], depth: 6.28, scale: 2.05 },
     robot: { ...ROBOT, head: px(1215, 84), depth: 6.28, scale: 0.86 },
   },
   // PORTFOLIO hero (robot only): a large robot on the right, turned toward the content column.

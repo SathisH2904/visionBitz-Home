@@ -167,14 +167,14 @@ export const CAROUSEL = geometry({
   stage: STAGE,
   cards: CARDS,
   quads: [
-    xf(DEFS.left.quad, -94, -6, 0.8),
+    xf(DEFS.left.quad, -15, 12, 0.65),
     DEFS.left.quad,
     DEFS.featured.quad,
     DEFS.right1.quad,
     DEFS.right2.quad,
     xf(DEFS.right2.quad, 106, 2, 0.86),
   ],
-  alphas: [0, 1, 1, 1, 1, 0],
+  alphas: [0, 0.62, 1, 0.66, 0.52, 0],
   unit: 240,
   faces: [
     { key: 'left', at: -1, ...SIDE.left },

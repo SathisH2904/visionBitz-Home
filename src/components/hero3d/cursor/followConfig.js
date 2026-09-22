@@ -61,17 +61,14 @@ export const ROBOT_FOLLOW = {
   yawSign: 1,
   pitchSign: -1,
   focusWeight: 0.9,
-  chain: { yaw: 26, pitch: 11 },
-  // priority order = order of keys: head → neck → torso.   Cursor maxima: head 20/8 · neck 8/3 · body 3/2; presenting the
-  // cards adds up to 12° / 5° / 3.5° (about ⅓–½ of that during a slide) so the whole robot turns a little with them.
-  // (The supplied robot's eyes are painted into its texture, so there is no separate eye layer: the head leads.)
+  chain: { yaw: 28, pitch: 16 },
   layers: {
     // leads: the whole head turns (eyes, smile and headphones with it)
-    head: { nodes: ['Head'], yaw: 16, pitch: 7, pitchUp: 5.5, limitYaw: 20, limitPitch: 8, roll: 2.5, couple: 0.3, damping: 9, present: 12 },
+    head: { nodes: ['Head'], yaw: 16, pitch: 9, pitchUp: 5, limitYaw: 22, limitPitch: 12, roll: 2.5, couple: 0.3, damping: 8, present: 12, presentPitch: 5 },
     // subtle
-    neck: { nodes: ['Neck'], yaw: 6, pitch: 2.5, pitchUp: 2, limitYaw: 8, limitPitch: 3, couple: 0.15, damping: 6, present: 5 },
-    // almost none from the cursor; a small lean with the cards
-    torso: { nodes: ['Torso'], yaw: 2.5, pitch: 1.2, limitYaw: 5, limitPitch: 2, couple: 0.08, damping: 4, present: 3.5 },
+    neck: { nodes: ['Neck'], yaw: 6, pitch: 3.5, pitchUp: 2, limitYaw: 8, limitPitch: 5, couple: 0.15, damping: 6, present: 5, presentPitch: 2.5 },
+    // leans toward the cards
+    torso: { nodes: ['Torso'], yaw: 3.5, pitch: 2, limitYaw: 6, limitPitch: 3, couple: 0.08, damping: 4, present: 4, presentPitch: 1.5 },
   },
 }
 
@@ -93,12 +90,12 @@ export const BOY_FOLLOW = {
   axes: DEFAULT_AXES,
   yawSign: -1,
   pitchSign: -1,
-  focusWeight: 0.5,
-  chain: { yaw: 20, pitch: 6 },
+  focusWeight: 0.92,
+  chain: { yaw: 24, pitch: 10 },
   layers: {
-    head: { nodes: ['Head'], yaw: 10, pitch: 4.5, pitchUp: 3, limitYaw: 14, limitPitch: 5, roll: 1.2, couple: 0.3, damping: 7.5, present: 8 },
-    neck: { nodes: ['Neck'], yaw: 4, pitch: 1.5, pitchUp: 1, limitYaw: 6, limitPitch: 2, couple: 0.15, damping: 5.5, present: 3 },
-    torso: { nodes: ['Torso'], yaw: 3, pitch: 1, limitYaw: 5, limitPitch: 1.5, couple: 0.08, damping: 3.6, present: 3 },
+    head: { nodes: ['Head'], yaw: 12, pitch: 5.5, pitchUp: 4.5, limitYaw: 18, limitPitch: 8, roll: 1.5, couple: 0.3, damping: 7.5, present: 10, presentPitch: 3.5 },
+    neck: { nodes: ['Neck'], yaw: 5, pitch: 2.5, pitchUp: 2, limitYaw: 8, limitPitch: 4, couple: 0.15, damping: 5.5, present: 4, presentPitch: 1.5 },
+    torso: { nodes: ['Torso'], yaw: 4, pitch: 1.5, limitYaw: 6, limitPitch: 2.5, couple: 0.08, damping: 3.6, present: 3, presentPitch: 1 },
   },
 }
 

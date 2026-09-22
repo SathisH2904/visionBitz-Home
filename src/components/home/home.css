@@ -223,6 +223,9 @@
     width: clamp(590px, 54vw, 960px);
     margin: 0;
     transform: translate(-49%, -59%);
+    /* Soft holographic dissolve mask on left edge ensuring cards cleanly dematerialize before touching the boy */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, rgba(0, 0, 0, 0.65) 24%, #000 32%, #000 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 12%, rgba(0, 0, 0, 0.65) 24%, #000 32%, #000 100%);
   }
 }
 
@@ -265,6 +268,12 @@
   top: 0;
   overflow: visible;
   pointer-events: none;
+}
+
+.svc-ring {
+  /* Mask out the left side where the boy stands so the line passes behind him */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 22%, rgba(0, 0, 0, 0.4) 28%, #000 36%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 22%, rgba(0, 0, 0, 0.4) 28%, #000 36%, #000 100%);
 }
 
 .svc-ring path {
@@ -334,6 +343,11 @@
 
 .svc-card[data-role='side'] {
   cursor: pointer;
+  transition: opacity 0.35s ease;
+}
+
+.svc-card[data-role='side']:hover {
+  opacity: 0.92 !important;
 }
 
 .svc-glass {
@@ -472,26 +486,36 @@
 .svc-badge {
   position: absolute;
   left: 32px;
-  top: 20px;
-  width: 70px;
-  height: 70px;
+  top: 22px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   display: grid;
   place-items: center;
   color: #35e8c7;
-  background: radial-gradient(circle at 35% 30%, rgba(35, 115, 125, 0.5) 0%, rgba(10, 48, 55, 0.8) 100%);
-  border: 2px solid rgba(130, 250, 240, 0.9);
+  background: radial-gradient(circle at 35% 30%, rgba(35, 125, 135, 0.6) 0%, rgba(10, 48, 55, 0.85) 100%);
+  border: 2.2px solid rgba(130, 255, 245, 0.95);
   box-shadow:
-    0 0 18px rgba(53, 232, 199, 0.65),
-    0 0 32px rgba(53, 232, 199, 0.3),
-    inset 0 0 14px rgba(53, 232, 199, 0.35);
+    0 0 18px rgba(53, 232, 199, 0.7),
+    0 0 35px rgba(53, 232, 199, 0.35),
+    inset 0 0 14px rgba(53, 232, 199, 0.4);
+}
+
+.svc-badge::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(110, 255, 240, 0.65);
+  box-shadow: inset 0 0 8px rgba(53, 232, 199, 0.3);
+  pointer-events: none;
 }
 
 .svc-badge svg {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   color: #55f3dc;
-  filter: drop-shadow(0 0 6px rgba(53, 232, 199, 0.85));
+  filter: drop-shadow(0 0 6px rgba(53, 232, 199, 0.9));
 }
 
 /* the text block and the bullet list FLOW in one column */
@@ -620,34 +644,34 @@
   outline-offset: 3px;
 }
 
-/* side content: rounded icon box + centered title */
+/* side content: rounded squircle icon box + centered title */
 .svc-side-icon {
   position: absolute;
   display: grid;
   place-items: center;
-  border-radius: 14px;
+  border-radius: 16px;
   color: #e6fffb;
-  background: rgba(18, 68, 76, 0.55);
-  border: 1.6px solid rgba(120, 245, 235, 0.7);
-  box-shadow: 0 0 14px rgba(53, 232, 199, 0.35), inset 0 0 8px rgba(53, 232, 199, 0.18);
+  background: rgba(12, 54, 62, 0.65);
+  border: 1.8px solid rgba(115, 252, 238, 0.85);
+  box-shadow: 0 0 16px rgba(53, 232, 199, 0.45), inset 0 0 10px rgba(53, 232, 199, 0.22);
 }
 
 .svc-side-icon svg {
-  width: 62%;
-  height: 62%;
-  color: #62f2de;
-  filter: drop-shadow(0 0 4px rgba(53, 232, 199, 0.7));
+  width: 58%;
+  height: 58%;
+  color: #65f5e2;
+  filter: drop-shadow(0 0 5px rgba(53, 232, 199, 0.85));
 }
 
 .svc-side-title {
   position: absolute;
-  font-size: 15px;
-  line-height: 19px;
+  font-size: 15.5px;
+  line-height: 20px;
   font-weight: 600;
   letter-spacing: -0.015em;
-  color: #eaf8f6;
+  color: #ffffff;
   text-align: center;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
 }
 
 .svc-side-title--center {
@@ -665,25 +689,25 @@
   cursor: pointer;
   pointer-events: auto;
   color: #ffffff;
-  border: 1.8px solid rgba(220, 255, 250, 0.95);
-  background: rgba(4, 25, 30, 0.65);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 0 14px rgba(53, 232, 199, 0.4), inset 0 0 8px rgba(53, 232, 199, 0.2);
+  border: 1.8px solid rgba(140, 255, 245, 0.85);
+  background: rgba(6, 28, 33, 0.75);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 16px rgba(53, 232, 199, 0.45), inset 0 0 10px rgba(53, 232, 199, 0.25);
   transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .svc-arrow svg {
   width: 20px;
   height: 20px;
-  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.7));
 }
 
 .svc-arrow:hover {
-  background: rgba(53, 232, 199, 0.25);
-  border-color: #55f5dd;
-  transform: scale(1.08);
-  box-shadow: 0 0 22px rgba(53, 232, 199, 0.7), inset 0 0 12px rgba(53, 232, 199, 0.35);
+  background: rgba(53, 232, 199, 0.3);
+  border-color: #65f5e2;
+  transform: scale(1.1);
+  box-shadow: 0 0 24px rgba(53, 232, 199, 0.8), inset 0 0 14px rgba(53, 232, 199, 0.4);
 }
 
 .svc-arrow:focus-visible {

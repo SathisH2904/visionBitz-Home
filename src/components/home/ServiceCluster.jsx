@@ -109,9 +109,14 @@ export default function ServiceCluster({ interaction, heroRef, apiRef, compact =
       const c = E.cache[i]
       if (!c) continue
       const o = wrap(i - p)
-      if (o < -2 || o > 3) { if (c.role !== 'off') { c.el.dataset.role = 'off'; c.role = 'off' } continue }
+      if (o < -1.35 || o > 3) { if (c.role !== 'off') { c.el.dataset.role = 'off'; c.role = 'off' } continue }
       at(o, tmp)
-      const a = tmp[8]
+      let a = tmp[8]
+      // Left exit dissolve: when a card leaves slot -1 toward the left, dissolve it into depth smoothly so it never enters the boy's space
+      if (o < -1) {
+        const t = Math.min(1, (-1 - o) / 0.35)
+        a *= (1 - t * t)
+      }
       if (a < 0.004) { if (c.role !== 'off') { c.el.dataset.role = 'off'; c.role = 'off' } continue }
       const st = c.el.style
       st.transform = quadMatrix(tmp, FLAT.w, FLAT.h)
@@ -280,8 +285,7 @@ export default function ServiceCluster({ interaction, heroRef, apiRef, compact =
           const R = Math.max(E.rect.hw, E.rect.hh) * 1.1 + 90
           s = smoothstep(0, 1, 1 - dist / R) * it.cfg.sens
         }
-        const proxS = s > 0.12 ? s : 0
-        if (proxS > 0 && E.rect) {
+        if (E.rect) {
           const hero = heroRef?.current?.getBoundingClientRect()
           if (hero && hero.width) {
             it.focus.x = clamp(((E.rect.cx - hero.left) / hero.width) * 2 - 1, -1, 1)
@@ -289,7 +293,9 @@ export default function ServiceCluster({ interaction, heroRef, apiRef, compact =
             it.focus.id = SERVICES[activeRef.current]?.id ?? null
           }
         }
-        const w = E.focusW.update(proxS, 0.25, dt)
+        // Baseline presentation focus on the active card, seamlessly coordinated with cursor exploration
+        const targetFocusWeight = p.active ? (s > 0.12 ? s : 0.35) : 0.68
+        const w = E.focusW.update(targetFocusWeight, 0.22, dt)
         it.focus.w = w
         // a soft emphasis on the featured card while the cursor is near it (glow + brighter rim, in CSS via --em)
         const em = E.em.update(s, 0.22, dt)
@@ -341,9 +347,11 @@ export default function ServiceCluster({ interaction, heroRef, apiRef, compact =
                 {/* the orbit ring, behind everything */}
                 <svg className="svc-ring" width={G.stage.w} height={G.stage.h} viewBox={`0 0 ${G.stage.w} ${G.stage.h}`} aria-hidden="true">
                   <defs>
-                    <linearGradient id="svc-ring-grad" gradientUnits="userSpaceOnUse" x1="20" y1="470" x2="1060" y2="150">
-                      <stop offset="0" stopColor="#35e8c7" stopOpacity="0.45" />
-                      <stop offset="0.5" stopColor="#67f2de" stopOpacity="0.32" />
+                    <linearGradient id="svc-ring-grad" gradientUnits="userSpaceOnUse" x1="0" y1="470" x2="1060" y2="150">
+                      <stop offset="0" stopColor="#35e8c7" stopOpacity="0" />
+                      <stop offset="0.22" stopColor="#35e8c7" stopOpacity="0" />
+                      <stop offset="0.32" stopColor="#35e8c7" stopOpacity="0.45" />
+                      <stop offset="0.65" stopColor="#67f2de" stopOpacity="0.32" />
                       <stop offset="1" stopColor="#35e8c7" stopOpacity="0.22" />
                     </linearGradient>
                     <filter id="svc-ring-glow" x="-10%" y="-10%" width="120%" height="120%">
