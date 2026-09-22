@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Walking mascot: starts at the left edge, travels to the right edge, loops.
+   left:0 -> left:100% with a matching translateX(-100%) keeps the whole
+   walker inside its track at both ends, so it never overflows the section. */
+@keyframes walk-across {
+  0%   { left: 0%;   transform: translateX(0%); }
+  100% { left: 100%; transform: translateX(-100%); }
+}
+.walk-mover {
+  position: absolute;
+  bottom: 0;
+  will-change: left, transform;
+  animation-name: walk-across;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .walk-mover { animation: none; left: 50%; transform: translateX(-50%); }
+}
+
+@layer base {
+  /* Larger base type across every page. rem-based sizes (all Tailwind text-*
+     utilities, rem arbitraries, headings) scale from this one lever, so the
+     whole site reads a step bigger. 112.5% = an 18px root (up from 16px). */
+  html { scroll-behavior: smooth; scroll-padding-top: 130px; font-size: 112.5%; }
+  /* Prevent stray absolutely-positioned decorations (negative offsets, blobs,
+     marquees) from making the page wider than the viewport on mobile, which
+     was clipping the hero content on the right edge. */
+  html, body { overflow-x: hidden; max-width: 100%; }
+  body {
+    @apply font-sans antialiased;
+    background: #FFFFFF;
+    color: #1A1A2E;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: #0c1a1a;
+  }
+  p { text-wrap: pretty; }
+}
+
+/* Explicit list rules for rich text blog content & editor */
+.blog-content ul, .prose ul, [contenteditable] ul {
+  list-style-type: disc !important;
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+.blog-content ol, .prose ol, [contenteditable] ol {
+  list-style-type: decimal !important;
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+.blog-content li, .prose li, [contenteditable] li {
+  margin-bottom: 0.35rem !important;
+  display: list-item !important;
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-white/60 shadow-card;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 font-bold px-7 py-3 rounded-full text-white text-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+    background: #0ABAB5;
+    box-shadow: 0 4px 20px rgba(10,186,181,0.35);
+  }
+}

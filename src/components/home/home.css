@@ -1,0 +1,1111 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Home hero (dark) — matched to the master reference.
+   Sizes are px / vw based on purpose: the site runs at html { font-size: 112.5% }, so rem-based
+   sizes here would come out 12.5% larger than the reference.
+   z-order (desktop):  bg 0 · particles 1 · 3D stage 10 · cards 20 · copy 30
+   ───────────────────────────────────────────────────────────────────────────── */
+.vb-hero {
+  --mint: #35e8c7;
+  --mint-d: #1fbfa6;
+  --ink: #041a1d;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #e9fbf8;
+  background: #061c20;
+  font-family: Manrope, Inter, system-ui, sans-serif;
+  padding-bottom: 28px;
+}
+
+@media (min-width: 1024px) {
+  .vb-hero {
+    min-height: max(100svh, 780px);
+    padding-bottom: 0;
+  }
+}
+
+/* ── backdrop layers (parallax targets) ── */
+/* the supplied dark-office photo. Two light scrims only keep the copy (left) and the hero's edges readable —
+   the photo itself is not tinted. */
+.vb-bg {
+  --scrim-copy: linear-gradient(90deg, rgba(3, 18, 22, 0.74) 0%, rgba(3, 18, 22, 0.5) 36%, rgba(3, 18, 22, 0.1) 64%, rgba(3, 18, 22, 0) 100%);
+  position: absolute;
+  inset: -28px;
+  z-index: 0;
+  pointer-events: none;
+  background-color: #061c20;
+  background-image:
+    var(--scrim-copy),
+    linear-gradient(180deg, rgba(3, 18, 22, 0.3) 0%, rgba(3, 18, 22, 0) 24%, rgba(3, 18, 22, 0) 76%, rgba(3, 18, 22, 0.5) 100%),
+    url('/img/hero/hero-office.webp');
+  background-size: auto, auto, cover;
+  background-position: 0 0, 0 0, center;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 1023px) {
+
+  /* the copy spans the full width on tablet / phone: an even scrim, and the photo framed on its pillar + plants */
+  .vb-bg {
+    --scrim-copy: linear-gradient(180deg, rgba(3, 18, 22, 0.62) 0%, rgba(3, 18, 22, 0.5) 100%);
+    background-position: 0 0, 0 0, 40% 50%;
+  }
+}
+
+.vb-particles {
+  position: absolute;
+  inset: -32px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+.vb-particles canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ── copy ── */
+.vb-copy {
+  position: relative;
+  z-index: 30;
+  padding: 112px clamp(20px, 4.6vw, 88px) 0;
+}
+
+@media (min-width: 1024px) {
+  .vb-copy {
+    padding-top: 178px;
+    padding-right: 0;
+    max-width: min(46vw, 700px);
+  }
+}
+
+.vb-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #b9d6d3;
+}
+
+.vb-eyebrow i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--mint);
+  box-shadow: 0 0 8px var(--mint);
+}
+
+.vb-h1 {
+  margin: 26px 0 0;
+  font-size: clamp(34px, 3.3vw, 54px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.vb-h1 em {
+  font-style: normal;
+  color: var(--mint);
+}
+
+.vb-h1 .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.vb-lead {
+  margin: 28px 0 0;
+  font-size: clamp(16px, 1.32vw, 20px);
+  line-height: 1.55;
+  color: #e5f4f2;
+  max-width: 26em;
+}
+
+.vb-sub {
+  margin: 18px 0 0;
+  font-size: clamp(14px, 1vw, 15.5px);
+  line-height: 1.6;
+  color: #9fbdb9;
+  max-width: 29.5em;
+}
+
+.vb-cta {
+  margin-top: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.vb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  padding: 15px 28px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s;
+  background: var(--mint);
+  color: var(--ink);
+  box-shadow: 0 10px 34px -10px rgba(53, 232, 199, 0.6);
+}
+
+.vb-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(53, 232, 199, 0.8);
+}
+
+.vb-btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: none;
+}
+
+.vb-btn--ghost:hover {
+  border-color: var(--mint);
+  background: rgba(53, 232, 199, 0.08);
+  box-shadow: none;
+}
+
+/* ── 3D stage: the canvas layer ── */
+.vb-stage {
+  position: relative;
+  height: 380px;
+  z-index: 10;
+  touch-action: pan-y;
+}
+
+@media (min-width: 768px) {
+  .vb-stage {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vb-stage {
+    position: absolute;
+    inset: 86px 0 0 0;
+    height: auto;
+  }
+}
+
+/* ── service cluster (ServiceCluster): real HTML, authored on a fixed 1056 × 632 design canvas (`.svc-stage`) that is
+   scaled to its box (`--k`, set by the component), so it scales proportionally on every screen.
+   Desktop: absolutely placed, centred where the card ring is centred (71 % across, 52 % down); the translate is the
+   cluster's own centre on the canvas, so the cards — not the canvas margins — land there. Tablet: in the flow, below the
+   stage. The box is `pointer-events: none`; only the cards and arrows take the pointer. ── */
+.vb-cards {
+  position: relative;
+  z-index: 20;
+  width: min(calc(100% - 40px), 780px);
+  margin: 6px auto 0;
+  aspect-ratio: 1060 / 632;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .vb-cards {
+    position: absolute;
+    z-index: 20;
+    left: 71%;
+    top: 52%;
+    width: clamp(590px, 54vw, 960px);
+    margin: 0;
+    transform: translate(-49%, -59%);
+  }
+}
+
+/* phones (compact carousel, 390 × 440 canvas): the box is the viewport width, the neighbours peek out either side and are
+   clipped at the box's edges (not above / below — the glow needs the room) */
+.vb-cards--compact {
+  width: min(100%, 480px);
+  margin: 0 auto;
+  aspect-ratio: 390 / 440;
+  clip-path: inset(-80px 0);
+}
+
+.vb-cards-par {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.vb-cards-enter {
+  position: absolute;
+  inset: 0;
+  animation: holo-enter 1.2s 0.55s cubic-bezier(0.22, 0.9, 0.24, 1) both;
+}
+
+.svc-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: scale(var(--k, 1));
+  transform-origin: 0 0;
+  font-family: Manrope, Inter, system-ui, sans-serif;
+  color: #e9fbf8;
+}
+
+/* orbit ring, hint, cursor mark */
+.svc-ring,
+.svc-note-arrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.svc-ring path {
+  filter: none;
+}
+
+.svc-note {
+  position: absolute;
+  transform-origin: 0 0;
+  white-space: nowrap;
+  font-family: Caveat, 'Segoe Script', cursive;
+  font-size: 23px;
+  line-height: 1.04;
+  font-weight: 500;
+  color: #eaf7f5;
+  pointer-events: none;
+}
+
+.svc-note-arrow path {
+  fill: none;
+  stroke: #eaf7f5;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.svc-cursor {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.svc-cursor path {
+  fill: #fff;
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(190, 255, 245, 0.8));
+}
+
+/* the cards. Every service is ONE persistent card on a shared 362 × 412 flat frame; the carousel engine (ServiceCluster)
+   writes its matrix3d (the perspective quad it is at right now), opacity and z-index, and cross-fades its faces. data-role:
+   feat = the card in the middle · side = a neighbour (its whole face is the button) · off = out of the scene. */
+.svc-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  pointer-events: none;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+}
+
+.svc-card[data-role='feat'],
+.svc-card[data-role='side'] {
+  pointer-events: auto;
+  will-change: transform, opacity;
+}
+
+.svc-card[data-role='off'] {
+  visibility: hidden;
+}
+
+.svc-card[data-role='side'] {
+  cursor: pointer;
+}
+
+.svc-glass {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.svc-glass::after {
+  /* the rim: drawn above the glass so it never covers the edge */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* the side card's glass — sleek rounded glass panel with cyan rim */
+.svc-glass--side {
+  border-radius: 26px;
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  background:
+    radial-gradient(70% 50% at 50% 0%, rgba(53, 232, 199, 0.22) 0%, transparent 80%),
+    linear-gradient(165deg, rgba(14, 52, 60, 0.72) 0%, rgba(6, 32, 38, 0.82) 50%, rgba(4, 24, 29, 0.88) 100%);
+  box-shadow:
+    0 0 1px 1px rgba(90, 220, 210, 0.5),
+    0 0 16px rgba(53, 232, 199, 0.18),
+    0 16px 36px -10px rgba(0, 0, 0, 0.6);
+  transition: filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.svc-glass--side::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1.5px solid rgba(120, 240, 230, 0.55);
+  box-shadow: inset 0 0 14px rgba(53, 232, 199, 0.16);
+  pointer-events: none;
+}
+
+.svc-card[data-role='side']:hover .svc-glass--side {
+  filter: brightness(1.2);
+  box-shadow:
+    0 0 1px 1px rgba(130, 255, 245, 0.75),
+    0 0 24px rgba(53, 232, 199, 0.4),
+    0 16px 36px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* the featured card's glass: glowing cyan glassmorphism UI card with intense cyan aura and robot pointer focal beam */
+.svc-glass--feat {
+  will-change: opacity;
+  border-radius: 34px;
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  background:
+    /* Top edge bright neon aura */
+    radial-gradient(80% 35% at 50% 0%, rgba(53, 232, 199, 0.45) 0%, transparent 80%),
+    /* Top-right corner beam where robot points */
+    radial-gradient(60% 40% at 85% 5%, rgba(110, 255, 235, 0.5) 0%, transparent 70%),
+    /* Bottom right ambient cyan glow */
+    radial-gradient(70% 50% at 90% 90%, rgba(53, 232, 199, 0.28) 0%, transparent 70%),
+    /* Subtle inner sheen lines */
+    linear-gradient(180deg, rgba(200, 255, 250, 0.35) 0%, rgba(200, 255, 250, 0) 14%),
+    linear-gradient(270deg, rgba(80, 240, 220, 0.2) 0%, rgba(80, 240, 220, 0) 10%),
+    linear-gradient(0deg, rgba(80, 240, 220, 0.3) 0%, rgba(80, 240, 220, 0) 12%),
+    /* Dark translucent glass base */
+    linear-gradient(160deg, rgba(16, 56, 64, 0.78) 0%, rgba(7, 36, 42, 0.85) 45%, rgba(4, 25, 30, 0.92) 100%);
+  box-shadow:
+    0 0 1px 1px rgba(120, 255, 240, 0.85),
+    0 0 16px rgba(53, 232, 199, 0.65),
+    0 0 38px rgba(53, 232, 199, 0.42),
+    0 0 75px rgba(53, 232, 199, calc(0.22 + 0.18 * var(--em, 0))),
+    0 24px 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+.svc-glass--feat::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(145, 252, 242, calc(0.85 + 0.15 * var(--em, 0)));
+  box-shadow:
+    inset 0 0 24px rgba(53, 232, 199, 0.32),
+    inset 0 2px 6px rgba(255, 255, 255, 0.6),
+    inset -8px -10px 24px -4px rgba(53, 232, 199, 0.4);
+  pointer-events: none;
+}
+
+/* a face is what the card shows in one slot: the featured layout (fills the frame) or a side layout (its own box, scaled on) */
+.svc-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.svc-face--feat {
+  width: 100%;
+  height: 100%;
+  will-change: opacity;
+}
+
+.svc-face--side {
+  transform-origin: 0 0;
+}
+
+.svc-card[data-role='feat'] .svc-cta {
+  pointer-events: auto;
+}
+
+.svc-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 40px;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: none;
+}
+
+.svc-card[data-role='side'] .svc-hit {
+  pointer-events: auto;
+}
+
+.svc-hit:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+/* featured content — flat px on the 362 × 412 card */
+.svc-badge {
+  position: absolute;
+  left: 32px;
+  top: 20px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #35e8c7;
+  background: radial-gradient(circle at 35% 30%, rgba(35, 115, 125, 0.5) 0%, rgba(10, 48, 55, 0.8) 100%);
+  border: 2px solid rgba(130, 250, 240, 0.9);
+  box-shadow:
+    0 0 18px rgba(53, 232, 199, 0.65),
+    0 0 32px rgba(53, 232, 199, 0.3),
+    inset 0 0 14px rgba(53, 232, 199, 0.35);
+}
+
+.svc-badge svg {
+  width: 40px;
+  height: 40px;
+  color: #55f3dc;
+  filter: drop-shadow(0 0 6px rgba(53, 232, 199, 0.85));
+}
+
+/* the text block and the bullet list FLOW in one column */
+.svc-main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 104px;
+  height: 225px;
+  display: flex;
+  flex-direction: column;
+}
+
+.svc-text {
+  flex: none;
+  margin: 0 22px 0 35px;
+}
+
+.svc-gap {
+  flex: 1 1 20px;
+  min-height: 8px;
+}
+
+.svc-eyebrow {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 18px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #52f0d9;
+  text-shadow: 0 0 10px rgba(53, 232, 199, 0.45);
+}
+
+.svc-title {
+  margin: 6px 0 0;
+  font-size: 30px;
+  line-height: 35px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.svc-title--long {
+  font-size: 22px;
+  line-height: 26px;
+  letter-spacing: -0.02em;
+}
+
+.svc-tagline {
+  margin: 8px 0 0;
+  font-size: 14.5px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #bfebe5;
+}
+
+.svc-list {
+  flex: none;
+  margin: 0 20px 0 36px;
+  padding: 0;
+  list-style: none;
+}
+
+.svc-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 28px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: #f0faf9;
+  white-space: nowrap;
+}
+
+.svc-list svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+  color: #35e8c7;
+  filter: drop-shadow(0 0 6px rgba(53, 232, 199, 0.8));
+}
+
+.svc-cta-wrap {
+  position: absolute;
+  left: 36px;
+  top: 346px;
+}
+
+.svc-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  height: 42px;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 14.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #032524;
+  background: linear-gradient(135deg, #4ef0d6 0%, #30d5be 100%);
+  box-shadow: 0 0 22px rgba(53, 232, 199, 0.65), 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.svc-cta svg {
+  width: 16px;
+  height: 16px;
+  color: #032524;
+  stroke-width: 2.5;
+}
+
+.svc-cta:hover {
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 0 30px rgba(53, 232, 199, 0.85), 0 6px 18px rgba(0, 0, 0, 0.45);
+  filter: brightness(1.05);
+}
+
+.svc-cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+/* side content: rounded icon box + centered title */
+.svc-side-icon {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #e6fffb;
+  background: rgba(18, 68, 76, 0.55);
+  border: 1.6px solid rgba(120, 245, 235, 0.7);
+  box-shadow: 0 0 14px rgba(53, 232, 199, 0.35), inset 0 0 8px rgba(53, 232, 199, 0.18);
+}
+
+.svc-side-icon svg {
+  width: 62%;
+  height: 62%;
+  color: #62f2de;
+  filter: drop-shadow(0 0 4px rgba(53, 232, 199, 0.7));
+}
+
+.svc-side-title {
+  position: absolute;
+  font-size: 15px;
+  line-height: 19px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #eaf8f6;
+  text-align: center;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.svc-side-title--center {
+  text-align: center;
+}
+
+/* the two round arrows */
+.svc-arrow {
+  position: absolute;
+  z-index: 200; /* above every card */
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  color: #ffffff;
+  border: 1.8px solid rgba(220, 255, 250, 0.95);
+  background: rgba(4, 25, 30, 0.65);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 14px rgba(53, 232, 199, 0.4), inset 0 0 8px rgba(53, 232, 199, 0.2);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.svc-arrow svg {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+}
+
+.svc-arrow:hover {
+  background: rgba(53, 232, 199, 0.25);
+  border-color: #55f5dd;
+  transform: scale(1.08);
+  box-shadow: 0 0 22px rgba(53, 232, 199, 0.7), inset 0 0 12px rgba(53, 232, 199, 0.35);
+}
+
+.svc-arrow:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+/* 4-point sparkle star */
+.svc-sparkle {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 0 8px rgba(53, 232, 199, 0.95));
+  animation: svc-sparkle-pulse 3s ease-in-out infinite;
+}
+
+@keyframes svc-sparkle-pulse {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.9; }
+  50% { transform: scale(1.15) rotate(10deg); opacity: 1; }
+}
+
+/* phones: the dots between the round arrows */
+.svc-dots {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 8px;
+  pointer-events: none;
+}
+
+.svc-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background 0.3s, width 0.3s;
+}
+
+.svc-dots span.on {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--mint);
+}
+
+/* ── hologram service cards ── */
+.holo {
+  position: relative;
+  z-index: 20;
+  margin: 8px clamp(20px, 4.6vw, 88px) 0;
+}
+
+@media (min-width: 1024px) {
+  .holo--ring {
+    position: absolute;
+    margin: 0;
+    left: 44.5%;
+    width: 48%;
+    top: 23%;
+    height: 58%;
+  }
+}
+
+@keyframes holo-enter {
+  from {
+    opacity: 0;
+    transform: translateY(46px) scale(0.93);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.holo-ring {
+  animation: holo-enter 1.2s 0.55s cubic-bezier(0.22, 0.9, 0.24, 1) both;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1700px;
+  perspective-origin: 50% 42%;
+  transform-style: preserve-3d;
+}
+
+.holo-orbit {
+  position: absolute;
+  left: 50%;
+  top: 72%;
+  width: 118%;
+  height: 46%;
+  transform: translate(-50%, -50%) rotateX(72deg);
+  border: 1.5px solid rgba(94, 234, 212, 0.4);
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(53, 232, 199, 0.22), inset 0 0 40px rgba(53, 232, 199, 0.08);
+  pointer-events: none;
+}
+
+.holo-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 340px;
+  height: 410px;
+  transform-style: preserve-3d;
+  /* every card keeps the SAME size; neighbours are just scaled down — animating size made content spill out mid-rotation */
+  transition: transform 0.95s cubic-bezier(0.22, 0.9, 0.24, 1), opacity 0.6s ease;
+}
+
+.holo-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  text-align: left;
+  color: #eafffb;
+  cursor: default;
+  overflow: hidden;
+  border: 1px solid rgba(94, 234, 212, 0.3);
+  background: linear-gradient(150deg, rgba(28, 112, 110, 0.86), rgba(8, 48, 52, 0.92));
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 0 calc(32px + 34px * var(--em, 0)) rgba(53, 232, 199, calc(0.13 + 0.27 * var(--em, 0))), 0 24px 50px -20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18), inset 0 0 44px rgba(53, 232, 199, 0.06);
+  transition: border-color 0.35s ease;
+  will-change: transform;
+}
+
+.holo-inner[data-emph] {
+  border-color: rgba(120, 255, 228, 0.78);
+}
+
+.holo-inner::before {
+  /* specular sheen — brightens as the cursor approaches */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 28%, rgba(255, 255, 255, calc(0.04 + 0.16 * var(--em, 0))) 46%, transparent 62%);
+}
+
+.holo-side {
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  font: inherit;
+}
+
+.holo-side:focus-visible,
+.holo-cta:focus-visible,
+.holo-arrow:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+/* side-card content is authored at FULL card size (it is scaled down ~0.58 by the ring), so it reads 15px-ish on screen */
+.holo-side-icon {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--mint);
+  background: rgba(53, 232, 199, 0.12);
+  border: 1.5px solid rgba(94, 234, 212, 0.3);
+}
+
+.holo-side-icon svg {
+  width: 46px;
+  height: 46px;
+}
+
+/* the featured card overlaps the inner half of each neighbour — keep the icon + label on the part that stays visible */
+.holo--ring .holo-card[data-o='-1'] .holo-side {
+  padding-right: 132px;
+}
+
+.holo--ring .holo-card[data-o='1'] .holo-side,
+.holo--ring .holo-card[data-o='2'] .holo-side {
+  padding-left: 132px;
+}
+
+.holo-side-title {
+  padding: 0 22px;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  color: #e6faf7;
+}
+
+.holo-featured {
+  padding: 28px 28px 0;
+}
+
+.holo-swap {
+  display: flex;
+  flex-direction: column;
+}
+
+.holo-swap {
+  animation: holo-in 0.7s cubic-bezier(0.22, 0.9, 0.24, 1) both;
+  height: 100%;
+  position: relative;
+}
+
+@keyframes holo-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.holo-badge {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #04211d;
+  background: radial-gradient(circle at 30% 28%, #a6fbee, #2fd5bb 55%, #16a596);
+  box-shadow: 0 0 26px rgba(53, 232, 199, 0.55);
+}
+
+.holo-eyebrow {
+  margin: 22px 0 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #a9d8d2;
+}
+
+.holo-title {
+  margin: 6px 0 0;
+  font-size: 26px;
+  line-height: 1.12;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.holo-tagline {
+  margin: 8px 0 0;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #cfe8e5;
+}
+
+.holo-list {
+  margin: 16px 0 18px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+}
+
+.holo-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #eafffb;
+}
+
+.holo-list svg {
+  color: var(--mint);
+  flex: none;
+}
+
+.holo-cta {
+  margin: auto 0 26px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--mint);
+  text-decoration: none;
+  box-shadow: 0 8px 22px -8px rgba(53, 232, 199, 0.7);
+  transition: transform 0.2s ease;
+}
+
+.holo-cta:hover {
+  transform: translateY(-2px);
+}
+
+.holo-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1% 0 17%;
+  pointer-events: none;
+  z-index: 30;
+}
+
+.holo-arrow {
+  pointer-events: auto;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(6, 28, 32, 0.45);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.holo-arrow:hover {
+  background: rgba(53, 232, 199, 0.18);
+  border-color: var(--mint);
+  transform: scale(1.06);
+}
+
+.holo-dots {
+  display: none;
+  gap: 7px;
+}
+
+.holo-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+  transition: background 0.3s, width 0.3s;
+}
+
+.holo-dots span.on {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--mint);
+}
+
+/* single (phone / narrow tablet): one featured card in normal flow */
+.holo--single .holo-ring {
+  perspective: none;
+  height: auto;
+}
+
+.holo--single .holo-orbit {
+  display: none;
+}
+
+.holo--single .holo-card {
+  position: relative;
+  left: auto;
+  top: auto;
+  transform: none !important;
+  width: 100%;
+  max-width: 440px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.holo--single .holo-inner {
+  min-height: 410px;
+  height: auto;
+  touch-action: pan-y;
+}
+
+.holo--single .holo-controls {
+  position: static;
+  margin-top: 16px;
+  padding: 0 4px !important;
+  max-width: 440px;
+  margin-inline: auto;
+}
+
+.holo--single .holo-dots {
+  display: flex;
+}
+
+/* ── hero → light section edge ── */
+.vb-hero-edge {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(53, 232, 199, 0.3), transparent);
+  z-index: 26;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .holo-card,
+  .holo-swap,
+  .holo-inner {
+    transition: none;
+    animation: none;
+  }
+
+  .vb-cards-enter {
+    animation: none;
+  }
+
+  .svc-cta,
+  .svc-arrow,
+  .svc-glass--side {
+    transition: none;
+  }
+}
